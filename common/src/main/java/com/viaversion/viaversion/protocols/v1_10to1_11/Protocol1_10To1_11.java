@@ -177,10 +177,10 @@ public class Protocol1_10To1_11 extends AbstractProtocol<ClientboundPackets1_9_3
             public void register() {
                 map(Types.STRING); // 0 - Message
                 handler(wrapper -> {
-                    // 100-character limit on older servers
+                    // 1.11+ servers accept 256 characters, and older clients can send that much with a modded chat box
                     String msg = wrapper.get(Types.STRING, 0);
-                    if (msg.length() > 100) {
-                        wrapper.set(Types.STRING, 0, msg.substring(0, 100).trim());
+                    if (msg.length() > 256) {
+                        wrapper.set(Types.STRING, 0, msg.substring(0, 256).trim());
                     }
                 });
             }
